@@ -1,14 +1,19 @@
+require 'bundler/setup'
+require 'faraday_middleware'
 require 'omniauth-oauth2'
+require 'base64'
 
 module OmniAuth
   module Strategies
     class BraintreeAuth < OmniAuth::Strategies::OAuth2
       option :name, :braintree_auth
+      option :raise_errors, false
 
       option :client_options, {
         :site => "https://api.sandbox.braintreegateway.com:443",
         :authorize_url => "/oauth/connect",
         :token_url => "/oauth/access_tokens",
+        :raise_errors => false,
       }
 
       option :authorize_options, [:scope, :redirect_uri]
@@ -21,7 +26,14 @@ module OmniAuth
         redirect authorize_url
       end
 
-      private
+      def build_access_token
+        options.token_params.merge!(:headers => _authorization_header)
+        super
+      end
+
+      def _authorization_header
+        {"Authorization" => "Basic #{::Base64.strict_encode64("#{options[:client_id]}:#{options[:client_secret]}")}"}
+      end
 
       def compute_signature(url)
         key_digest = OpenSSL::Digest::SHA256.digest(options["client_secret"])

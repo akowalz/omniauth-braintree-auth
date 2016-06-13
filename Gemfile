@@ -1,5 +1,8 @@
 source 'https://rubygems.org'
-gem "oauth2", :path => "../oauth2"
+
+group :development do
+  gem 'pry'
+end
 
 # Specify your gem's dependencies in omniauth-braintree-auth.gemspec
 gemspec

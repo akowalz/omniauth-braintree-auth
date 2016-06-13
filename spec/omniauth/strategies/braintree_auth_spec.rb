@@ -46,18 +46,18 @@ describe OmniAuth::BraintreeAuth do
           expect( strategy.options.client_options.site ).to eq("https://api.sandbox.braintreegateway.com")
         end
 
-        it "uses braintreegateway.com in sandbox mode" do
+        it "uses braintreegateway.com in production mode" do
           strategy = OmniAuth::Strategies::BraintreeAuth.new(app, "client_id", "client_secret", :environment => "production")
-          strategy.request_phase
+          strategy.setup_phase
 
           expect( strategy.options.client_options.site ).to eq("https://api.braintreegateway.com")
         end
 
-        it "defaults to the production endpoint" do
+        it "defaults to the sandbox endpoint" do
           strategy = OmniAuth::Strategies::BraintreeAuth.new(app, "client_id", "client_secret")
-          strategy.request_phase
+          strategy.setup_phase
 
-          expect( strategy.options.client_options.site ).to eq("https://api.braintreegateway.com")
+          expect( strategy.options.client_options.site ).to eq("https://api.sandbox.braintreegateway.com")
         end
       end
     end

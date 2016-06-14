@@ -9,7 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Alex Kowalczuk"]
   spec.email         = ["askowalczuk93@gmail.com"]
 
-  spec.summary       = %q{OmniAuth Strategy for Braintree Auth}
+  spec.summary       = "OmniAuth Strategy for Braintree Auth"
+  spec.description   = "OmniAuth Strategy for Braintree Auth, allows easy integration with the Braintree Auth API through Omniauth"
   spec.homepage      = "https://github.com/akowalz/omniauth-braintree-auth"
   spec.license       = "MIT"
 
@@ -24,5 +25,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'omniauth', '~> 1.0'
   spec.add_dependency 'faraday_middleware', '~> 0.10.0'
-  spec.add_dependency 'omniauth-oauth2', '~> 1.3.1'
+  spec.add_dependency 'omniauth-oauth2', '~> 1.3'
 end

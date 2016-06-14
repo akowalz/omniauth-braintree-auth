@@ -19,7 +19,7 @@ And then run:
 
 It's helpful to have a general understanding of how OmniAuth works and what it provides before diving into a particular strategy. I recommend checking out the [OmniAuth documentation](https://github.com/intridead/omniauth) for more information.
 
-The Braintree Auth strategy allows you pass a `client_id`, `client_secret`, `redirect_uri`, `scope`, `environment`, and `landing_page` to as configuration options.  Example usage in a Rack application:
+The Braintree Auth strategy allows you pass a `client_id`, `client_secret`, `redirect_uri`, `scope`, `environment`, and `landing_page` as configuration options.  Example usage in a Rack application:
 
 ```ruby
 use OmniAuth::Builder do
@@ -28,7 +28,7 @@ use OmniAuth::Builder do
     :scope => "read_write",                                                # required
     :redirect_uri => "http://localhost:4567/auth/braintree_auth/callback", # required
     :landing_page => "login"                                               # optional, one of 'signup' or 'login'
-    :environment => "production"                                           # optional defaults to sandbox
+    :environment => "production"                                           # optional, defaults to sandbox
 end
 ```
 
@@ -41,7 +41,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     :scope => "read_write",                                                # required
     :redirect_uri => "http://localhost:4567/auth/braintree_auth/callback", # required
     :landing_page => "login"                                               # optional, one of 'signup' or 'login'
-    :environment => "production"                                           # optional defaults to sandbox
+    :environment => "production"                                           # optional, defaults to sandbox
 end
 ```
 

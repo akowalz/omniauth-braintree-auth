@@ -1,8 +1,5 @@
-require 'bundler/setup'
 require 'omniauth-oauth2'
-require 'oauth2'
 require 'base64'
-require 'pry'
 
 module OmniAuth
   module Strategies

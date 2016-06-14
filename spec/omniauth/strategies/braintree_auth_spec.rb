@@ -5,6 +5,11 @@ describe OmniAuth::BraintreeAuth do
     lambda { |_| [200, {}, ["Hello."]] }
   end
 
+  let(:client_id) { "client_id" }
+  let(:client_secret) { "client_secret" }
+  let(:options) { Hash.new }
+  let(:strategy) { OmniAuth::Strategies::BraintreeAuth.new(app, client_id, client_secret, options) }
+
   before do
     OmniAuth.config.test_mode = true
   end
@@ -18,43 +23,45 @@ describe OmniAuth::BraintreeAuth do
   end
 
   it "has a name" do
-    strategy = OmniAuth::Strategies::BraintreeAuth.new(app)
     expect( strategy.name ).to eq(:braintree_auth)
   end
 
   describe "client options" do
     it "allows configurable client_id and client_secret" do
-      strategy = OmniAuth::Strategies::BraintreeAuth.new(app, "client_id", "client_secret")
-
       expect( strategy.options["client_id"] ).to eq("client_id")
       expect( strategy.options["client_secret"] ).to eq("client_secret")
     end
 
     it "has correct authorize and token URLs" do
-      strategy = OmniAuth::Strategies::BraintreeAuth.new(app)
-
       expect( strategy.options.client_options.authorize_url ).to eq("/oauth/connect")
       expect( strategy.options.client_options.token_url ).to eq("/oauth/access_tokens")
     end
+  end
 
-    describe "setup_phase" do
-      describe "host configuration" do
-        it "uses sandbox.braintreegateway.com in sandbox mode" do
-          strategy = OmniAuth::Strategies::BraintreeAuth.new(app, "client_id", "client_secret", :environment => "sandbox")
+  describe "setup_phase" do
+    describe "host configuration" do
+      let(:options) { {:environment => "sandbox"} }
+
+      context "environment set to sandbox" do
+        it "uses sandbox.braintreegateway.com" do
           strategy.setup_phase
 
           expect( strategy.options.client_options.site ).to eq("https://api.sandbox.braintreegateway.com")
         end
+      end
 
-        it "uses braintreegateway.com in production mode" do
-          strategy = OmniAuth::Strategies::BraintreeAuth.new(app, "client_id", "client_secret", :environment => "production")
+      context "environment set to production" do
+      let(:options) { {:environment => "production"} }
+        it "uses braintreegateway.com" do
           strategy.setup_phase
 
           expect( strategy.options.client_options.site ).to eq("https://api.braintreegateway.com")
         end
+      end
 
+      context "when no environment is specified" do
+      let(:options) { {:environment => "sandbox"} }
         it "defaults to the sandbox endpoint" do
-          strategy = OmniAuth::Strategies::BraintreeAuth.new(app, "client_id", "client_secret")
           strategy.setup_phase
 
           expect( strategy.options.client_options.site ).to eq("https://api.sandbox.braintreegateway.com")
@@ -64,14 +71,16 @@ describe OmniAuth::BraintreeAuth do
   end
 
   describe "authorize options" do
-    it "allows configurable authorize options" do
-      strategy = OmniAuth::Strategies::BraintreeAuth.new(app, "id", "secret", {
+    let(:options) do
+      {
         :scope => "read_only",
         :redirect_uri => "https://example.com/callback",
         :landing_page => "login",
         :environment => "sandbox",
-      })
+      }
+    end
 
+    it "allows configurable authorize options" do
       expect( strategy.authorize_params.scope ).to eq("read_only")
       expect( strategy.authorize_params.redirect_uri ).to eq("https://example.com/callback")
       expect( strategy.authorize_params.landing_page ).to eq("login")

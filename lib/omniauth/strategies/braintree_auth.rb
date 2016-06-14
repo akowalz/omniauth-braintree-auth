@@ -9,12 +9,12 @@ module OmniAuth
     class BraintreeAuth < OmniAuth::Strategies::OAuth2
       option :name, :braintree_auth
       option :environment, "sandbox"
-      option :raise_errors, false
 
       option :client_options, {
         :authorize_url => "/oauth/connect",
         :site => "https://api.sandbox.braintreegateway.com",
         :token_url => "/oauth/access_tokens",
+        :raise_errors => false,
       }
 
       option :authorize_options, [:scope, :redirect_uri, :landing_page]
@@ -32,6 +32,7 @@ module OmniAuth
       end
 
       def setup_phase
+        options.raise_errors = false
         options.client_options.site = "https://api.braintreegateway.com" if options.environment == "production"
 
         # application/xml content type is not recognized as XML by OAuth2 gem, so we must register it manually

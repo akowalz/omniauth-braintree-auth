@@ -29,7 +29,6 @@ module OmniAuth
       end
 
       def setup_phase
-        options.raise_errors = false
         options.client_options.site = "https://api.braintreegateway.com" if options.environment == "production"
 
         # application/xml content type is not recognized as XML by OAuth2 gem, so we must register it manually

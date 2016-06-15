@@ -17,7 +17,7 @@ And then run:
 
 ## Usage
 
-It's helpful to have a general understanding of how OmniAuth works and what it provides before diving into a particular strategy. I recommend checking out the [OmniAuth documentation](https://github.com/intridead/omniauth) for more information.
+It's helpful to have a general understanding of how OmniAuth works and what it provides before diving into a particular strategy. I recommend checking out the [OmniAuth documentation](https://github.com/intridea/omniauth) for more information on how to use OmniAuth strategies.
 
 The Braintree Auth strategy allows you pass a `client_id`, `client_secret`, `redirect_uri`, `scope`, `environment`, and `landing_page` as configuration options.  Example usage in a Rack application:
 

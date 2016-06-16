@@ -27,7 +27,7 @@ use OmniAuth::Builder do
     "your_client_id", "your_client_secret",
     :scope => "read_write",                                                # required
     :redirect_uri => "http://localhost:4567/auth/braintree_auth/callback", # required
-    :landing_page => "login"                                               # optional, one of 'signup' or 'login'
+    :landing_page => "login",                                              # optional, one of 'signup' or 'login'
     :environment => "production"                                           # optional, defaults to sandbox
 end
 ```
@@ -40,7 +40,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     "your_client_id", "your_client_secret",
     :scope => "read_write",                                                # required
     :redirect_uri => "http://localhost:4567/auth/braintree_auth/callback", # required
-    :landing_page => "login"                                               # optional, one of 'signup' or 'login'
+    :landing_page => "login",                                              # optional, one of 'signup' or 'login'
     :environment => "production"                                           # optional, defaults to sandbox
 end
 ```
@@ -106,7 +106,7 @@ class TestApp < Sinatra::Base
 
   use OmniAuth::Builder do
     provider :braintree_auth,
-      ENV['BRAINTREE_AUTH_CLIENT_ID'], ENV['BRAINTREE_AUTH_CLIENT_SECRET']
+      ENV['BRAINTREE_AUTH_CLIENT_ID'], ENV['BRAINTREE_AUTH_CLIENT_SECRET'],
       :scope => "read_write",
       :redirect_uri => "http://127.0.0.1:4567/auth/braintree_auth/callback",
       :landing_page => "login",

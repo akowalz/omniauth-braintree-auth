@@ -83,12 +83,14 @@ you can then use this information in your application:
 
 ```ruby
 
-get '/auth/braintree_auth/callback do
+get '/auth/braintree_auth/callback' do
   auth_hash = request.env['omniauth.auth']
 
   access_token = auth_hash['credentials']['access_token']
 end
 ```
+
+For more information about how to use a Braintree access token on behalf of a merchant, see the Merchant API section of the [Braintree Auth developer docs](https://developers.braintreepayments.com/guides/braintree-auth/merchant-api/ruby)
 
 ## Example
 

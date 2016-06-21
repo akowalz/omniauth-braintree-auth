@@ -35,6 +35,8 @@ end
 or, in Rails:
 
 ```ruby
+# app/initializers/omniauth.rb
+
 Rails.application.config.middleware.use OmniAuth::Builder do
   provider :braintree_auth,
     "your_client_id", "your_client_secret",
@@ -72,8 +74,8 @@ Here is an example auth hash provided in `request.env['omniauth.auth']`:
   uid: "braintree_merchant_id",
   info: { merchant_id: "braintree_merchant_id" },
   credentials: {
-    access_token: "access_token$sandbox$example_access_token"
-    refresh_token: "access_token$sandbox$refresh_token"
+    access_token: "access_token$sandbox$example_access_token",
+    refresh_token: "access_token$sandbox$example_refresh_token",
     expires_at: "2026-06-14 19:49:02 UTC"
   }
 }
@@ -90,7 +92,7 @@ get '/auth/braintree_auth/callback' do
 end
 ```
 
-For more information about how to use a Braintree access token on behalf of a merchant, see the Merchant API section of the [Braintree Auth developer docs](https://developers.braintreepayments.com/guides/braintree-auth/merchant-api/ruby)
+For more information about how to use a Braintree access token on behalf of a merchant, see the Merchant API section of the [Braintree Auth developer docs](https://developers.braintreepayments.com/guides/braintree-auth/merchant-api/ruby).
 
 ## Example
 
@@ -125,7 +127,7 @@ class TestApp < Sinatra::Base
     auth_hash = request.env['omniauth.auth']                                                                                                     
     merchant_id = auth_hash['uid']                                                                                                               
     access_token = auth_hash['credentials']['access_token']                                                                                      
-                                                                                                                                                
+
     "#{access_token} can be used to access merchant #{merchant_id}"                                                                              
   end                                                                                                                                            
 end
